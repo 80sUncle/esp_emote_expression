@@ -6,6 +6,8 @@ idf_component_register(
 
 if(${IDF_TARGET} STREQUAL "esp32s3")
     set(RESOLUTION "320_240")
+elseif(${IDF_TARGET} STREQUAL "esp32s31")
+    set(RESOLUTION "320_240")
 elseif(${IDF_TARGET} STREQUAL "esp32p4")
     set(RESOLUTION "1024_600")
 else()
