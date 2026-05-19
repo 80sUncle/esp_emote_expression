@@ -79,7 +79,7 @@ jobs:
             -C test_apps \
             -B test_apps/build_esp32s31 \
             -DIDF_TARGET=esp32s31 \
-            -DSDKCONFIG=test_apps/build_esp32s31/sdkconfig \
+            -DSDKCONFIG=$GITHUB_WORKSPACE/test_apps/build_esp32s31/sdkconfig \
             -DSDKCONFIG_DEFAULTS=sdkconfig.bsp.esp32s31 \
             build
 
