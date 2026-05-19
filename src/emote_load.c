@@ -149,7 +149,7 @@ const void *emote_acquire_data(emote_handle_t handle, const void *data_ref, size
 
     mmap_assets_handle_t asset_handle = handle->assets_handle;
     bool is_DBUS = false;
-#if CONFIG_IDF_TARGET_ESP32P4
+#if CONFIG_IDF_TARGET_ESP32P4 || CONFIG_IDF_TARGET_ESP32S31
     is_DBUS = ((size_t)data_ref >= SOC_MMU_FLASH_VADDR_BASE);
 #else
     is_DBUS = ((size_t)data_ref >= SOC_MMU_DBUS_VADDR_BASE);

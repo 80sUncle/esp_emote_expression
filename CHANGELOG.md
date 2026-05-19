@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.2] - 2026-05-19
+
+- Use the managed `espressif/cjson` component instead of the removed ESP-IDF `json` component.
+- Use `espressif/esp_vocat` BSP for ESP32-S3 test apps on ESP-IDF 6.0 and later.
+- Split test app hardware initialization from emote test cases.
+
 ## [1.0.1] - 2026-05-11
 
 - Fix battery status timer to update only the label, avoiding asset reads from the render task.

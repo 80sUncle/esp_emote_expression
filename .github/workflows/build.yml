@@ -32,7 +32,7 @@ jobs:
     timeout-minutes: 120
     strategy:
       matrix:
-        idf-version: ['release-v5.3', 'release-v5.4', 'release-v5.5']
+        idf-version: ['release-v5.3', 'release-v5.4', 'release-v5.5', 'release-v6.0']
       fail-fast: false
     container: espressif/idf:${{matrix.idf-version}}
     steps:
@@ -49,7 +49,7 @@ jobs:
           pip install idf-build-apps
 
           cd $GITHUB_WORKSPACE
-          # Build both BSP configs: sdkconfig.bsp.esp-box (esp32s3) and sdkconfig.bsp.esp32_p4_function_ev_board (esp32p4)
+          # Build BSP configs and the ESP32-S31 compile-only config.
           IDF_CCACHE_ENABLE=1 idf-build-apps build -p test_apps --config-rules "sdkconfig.bsp.*=" -vv
 
       - name: Upload build artifacts
