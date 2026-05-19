@@ -49,7 +49,7 @@ jobs:
           pip install idf-build-apps
 
           cd $GITHUB_WORKSPACE
-          # Build BSP configs and the ESP32-S31 compile-only config.
+          # Build BSP configs.
           IDF_CCACHE_ENABLE=1 idf-build-apps build -p test_apps --config-rules "sdkconfig.bsp.*=" -vv
 
       - name: Upload build artifacts
@@ -57,5 +57,36 @@ jobs:
         with:
           name: test_apps-build-idf-${{matrix.idf-version}}
           path: test_apps/build_*/
+          retention-days: 7
+          if-no-files-found: warn
+
+  build-s31:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    container: espressif/idf:latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: 'recursive'
+
+      - name: Build ESP32-S31 test_app
+        shell: bash
+        timeout-minutes: 100
+        run: |
+          . $IDF_PATH/export.sh
+          cd $GITHUB_WORKSPACE
+          idf.py --preview \
+            -C test_apps \
+            -B test_apps/build_esp32s31 \
+            -DIDF_TARGET=esp32s31 \
+            -DSDKCONFIG=test_apps/build_esp32s31/sdkconfig \
+            -DSDKCONFIG_DEFAULTS=sdkconfig.bsp.esp32s31 \
+            build
+
+      - name: Upload ESP32-S31 build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: test_apps-build-esp32s31
+          path: test_apps/build_esp32s31/
           retention-days: 7
           if-no-files-found: warn
